@@ -1,0 +1,78 @@
+<html xhtml="">
+    <head><title>Welcome to filter page of product</title>
+
+        <script type='text/javascript'>
+            
+            function bindlist()
+            {
+              var ele = document.getElementById('drpbrand');
+                alert("fun call");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const myObj = JSON.parse(this.responseText);
+                     for (let x in myObj) {
+                      ele.innerHTML = ele.innerHTML +
+                '<option value="' + myObj[x].brand_id + '">' + myObj[x].brand_name + '</option>';
+                    }
+        
+      // alert(this.responseText);
+     
+         
+         
+         alert(txt);
+        
+        }
+  
+    }
+   
+  xhttp.open("GET", "/fetchbrand", true);
+  //alert(xhttp);
+     xhttp.send();
+      }
+  
+   
+
+            
+            function Logout()
+            {
+              // alert("call");
+                window.location='/logout';
+            }
+           function fetchData() {
+               var val=document.getElementById("drpbrand").value;
+             //  alert("fetch data call"+val);
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        const myObj = JSON.parse(this.responseText);
+        let text = "<table border='1' width='100%'><tr><th>Braand ID</th><th>Product Name</th><th>Product Price</th></tr>"
+    for (let x in myObj) {
+      text += "<tr><td>" + myObj[x].b_id + "</td><td>" + myObj[x].p_name + "</td><td>" + myObj[x].p_price + "</td></tr>";
+     
+    }
+    text += "</table>"
+    document.getElementById("resultdata").innerHTML = text;
+      // document.getElementById('resultdata').innerText=this.responseText;
+      }
+   };
+  xhttp.open("GET", "/fetchdata?v="+val, true);
+  //alert(xhttp);
+     xhttp.send();
+   }
+           </script>
+    </head>
+    <body onload="bindlist()">
+        <p><input type="button" value="Logout" onclick="Logout();"></p>  
+        <h3>Filter Product</h3>
+       
+        
+                <!--The SELECT element.-->
+    <select id="drpbrand">
+      <option value="">-- Select --</option>
+  </select>
+        <input type="button" value="Print" id="btn" onclick="fetchData();">
+        <br><br>
+        <div id="resultdata" >Output data display here</div>
+    </body>
+</html>

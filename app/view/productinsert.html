@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>
+            Welcome to Product Insert
+        </title>
+        <script language="javascript">
+            function bindlist()
+            {
+              var ele = document.getElementById('drpbrand');
+                alert("fun call");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const myObj = JSON.parse(this.responseText);
+                     for (let x in myObj) {
+                      ele.innerHTML = ele.innerHTML +
+                '<option value="' + myObj[x].brand_id + '">' + myObj[x].brand_name + '</option>';
+                    }
+        
+      // alert(this.responseText);
+     
+         
+         
+         alert(txt);
+        
+        }
+  
+    }
+   
+  xhttp.open("GET", "/fetchbrand", true);
+  //alert(xhttp);
+     xhttp.send();
+      }
+            function Logout()
+            {
+               // alert("call");
+                window.location='/logout';
+            }
+            function listp()
+            {
+                window.location='/productfilter'
+            }
+        </script>
+    </head>
+    <body onload="bindlist()">
+        <p><input type="button" value="Logout" onclick="Logout();"> <input type="button" value="List Product" onclick="listp();"></p>  
+        <table>
+            <form action="" method="post" enctype="multipart/form-data">
+                <tr>
+                <td>Brand:</td>
+                <td><select id="drpbrand" name="drpbrand">
+                    <option value="">-- Select --</option>
+                </select></td></tr>
+                <tr>
+                <td>Product Name:</td>
+                <td><input type="text" name="pname" id="pname"></td></tr>
+                <tr></tr>
+                <tr><td>Product price:</td>
+               <td><input type="text"  name="pprice" id="pprice"></td></tr>
+               <tr><td>Images</td><td><input type="file" name="pfile" multiple></td></tr>
+                <tr><td>&nbsp;</td><td><input type="submit" value="Save"></td></tr>
+            </form>
+        </table>
+    </body>
+</html>
